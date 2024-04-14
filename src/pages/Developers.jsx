@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Box, Container, Heading, Input, Stack, Text, Wrap, WrapItem, Tag, Link } from "@chakra-ui/react";
+import { Box, Container, Heading, Input, Stack, Text, Wrap, WrapItem, Tag, Link, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+import ContactModal from "../components/ContactModal";
 
 const developers = [
   {
@@ -32,13 +33,24 @@ const Developers = () => {
 
           <Wrap spacing="8">
             {filteredDevelopers.map((dev) => (
-              <WrapItem key={dev.id} borderWidth="1px" borderRadius="lg" p="4">
-                <Stack>
-                  <Link as={RouterLink} to={`/developers/${dev.id}`}>
-                    <Heading as="h2" size="md">
-                      {dev.name}
-                    </Heading>
-                  </Link>
+              <WrapItem key={dev.id} borderWidth="1px" borderRadius="lg" p="6">
+                <Stack spacing="4">
+                  <Stack spacing="1">
+                    <Link as={RouterLink} to={`/developers/${dev.id}`}>
+                      <Heading as="h2" size="md">
+                        {dev.name}
+                      </Heading>
+                    </Link>
+                    <Text>{dev.location}</Text>
+                  </Stack>
+                  <Wrap>
+                    {dev.technologies.map((tech) => (
+                      <Tag key={tech} size="md" colorScheme="blue">
+                        {tech}
+                      </Tag>
+                    ))}
+                  </Wrap>
+                  <ContactModal developer={dev} />
                   <Text>{dev.location}</Text>
                   <Wrap>
                     {dev.technologies.map((tech) => (
